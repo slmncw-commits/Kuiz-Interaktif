@@ -153,6 +153,25 @@ C. Kuching"></textarea>
                                 <label for="shuffleToggle" class="text-slate-600 font-semibold cursor-pointer">Acak Soalan & Jawapan:</label>
                                 <input type="checkbox" id="shuffleToggle" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer">
                             </div>
+
+                            <div class="border-t pt-2">
+                                <label class="block text-slate-600 font-semibold mb-1">Markah Lalai Soalan Biasa:</label>
+                                <input type="number" id="defaultNormalScoreInput" value="100" min="0" class="w-full p-1.5 border rounded bg-slate-50 font-bold text-slate-700 focus:ring-1 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-slate-600 font-semibold mb-1">Markah Lalai Soalan Bonus:</label>
+                                <input type="number" id="defaultBonusScoreInput" value="200" min="0" class="w-full p-1.5 border rounded bg-slate-50 font-bold text-slate-700 focus:ring-1 focus:ring-indigo-500">
+                            </div>
+
+                            <div class="flex items-center justify-between border-t pt-2">
+                                <label for="winstreakToggle" class="text-slate-600 font-semibold cursor-pointer">Aktifkan Bonus Winstreak:</label>
+                                <input type="checkbox" id="winstreakToggle" checked class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer" onchange="toggleWinstreakInput()">
+                            </div>
+                            <div id="winstreakScoreWrapper">
+                                <label class="block text-slate-600 font-semibold mb-1">Markah Bonus Winstreak (setiap tambahan):</label>
+                                <input type="number" id="winstreakScoreInput" value="50" min="0" class="w-full p-1.5 border rounded bg-slate-50 font-bold text-slate-700 focus:ring-1 focus:ring-indigo-500">
+                                <span class="text-[10px] text-slate-400 block mt-0.5">*Markah tambahan diberi bila kumpulan jawab betul berturut-turut.</span>
+                            </div>
                         </div>
                     </div>
 
@@ -354,6 +373,10 @@ C. Kuching"></textarea>
         let timeLeft = 0;
         let timerInterval = null;
 
+        // Tetapan Markah & Winstreak
+        let winstreakEnabled = true;
+        let winstreakBonusAmount = 50;
+
         // --- SISTEM AUDIO & KELANTANGAN ---
         let audioCtx = null;
         let bgmInterval = null;
@@ -537,6 +560,17 @@ C. Kuching"></textarea>
         // Init Aplikasi
         renderGroups();
         updateSavedSetsDropdown();
+        toggleWinstreakInput();
+
+        function toggleWinstreakInput() {
+            winstreakEnabled = document.getElementById('winstreakToggle').checked;
+            const wrapper = document.getElementById('winstreakScoreWrapper');
+            if (winstreakEnabled) {
+                wrapper.classList.remove('hidden');
+            } else {
+                wrapper.classList.add('hidden');
+            }
+        }
 
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
@@ -550,6 +584,9 @@ C. Kuching"></textarea>
         function processBulkInput() {
             const rawText = document.getElementById('bulkInput').value.trim();
             if (!rawText) return alert("Sila masukkan soalan!");
+
+            const defaultNormalScore = parseInt(document.getElementById('defaultNormalScoreInput').value) || 100;
+            const defaultBonusScore = parseInt(document.getElementById('defaultBonusScoreInput').value) || 200;
 
             const blocks = rawText.split(/\n\s*\n/);
             blocks.forEach(block => {
@@ -577,7 +614,7 @@ C. Kuching"></textarea>
                         options: options,
                         image: null,
                         isBonus: isBonus,
-                        score: isBonus ? 200 : 100 // Tanda markah awal
+                        score: isBonus ? defaultBonusScore : defaultNormalScore // Tanda markah awal
                     });
                 }
             });
@@ -861,6 +898,10 @@ C. Kuching"></textarea>
             const rawTimerVal = parseInt(document.getElementById('timerInput').value);
             timerSetting = isNaN(rawTimerVal) || rawTimerVal < 0 ? 0 : rawTimerVal;
 
+            winstreakEnabled = document.getElementById('winstreakToggle').checked;
+            const rawWinstreakVal = parseInt(document.getElementById('winstreakScoreInput').value);
+            winstreakBonusAmount = isNaN(rawWinstreakVal) || rawWinstreakVal < 0 ? 0 : rawWinstreakVal;
+
             const isShuffle = document.getElementById('shuffleToggle').checked;
 
             if (isShuffle) {
@@ -1049,8 +1090,8 @@ C. Kuching"></textarea>
                     g.streak++;
                     let earned = basePoints;
                     
-                    if (g.streak >= 2) {
-                        earned += (g.streak - 1) * 50; // Bonus streak
+                    if (winstreakEnabled && g.streak >= 2) {
+                        earned += (g.streak - 1) * winstreakBonusAmount; // Bonus streak
                     }
                     g.score += earned;
                     someoneCorrect = true;
@@ -1114,7 +1155,7 @@ C. Kuching"></textarea>
                         <span class="text-xs flex-shrink-0">${idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '#' + (idx + 1)}</span>
                         <div class="truncate">
                             <span class="font-bold text-slate-800 leading-tight block truncate">${g.name}</span>
-                            ${g.streak >= 2 ? `<span class="text-[9px] bg-amber-500 text-white font-black px-1 rounded">🔥 Streak x${g.streak}</span>` : ''}
+                            ${(winstreakEnabled && g.streak >= 2) ? `<span class="text-[9px] bg-amber-500 text-white font-black px-1 rounded">🔥 Streak x${g.streak}</span>` : ''}
                         </div>
                     </div>
                     

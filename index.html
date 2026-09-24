@@ -53,11 +53,11 @@
             background-size: 300% 300% !important;
         }
 
-        /* Style custom slider thumb hack to simulate swipe */
+        /* Style custom slider thumb hack to simulate swipe - Saiz Compact */
         input[type=range]::-webkit-slider-thumb {
             appearance: none;
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
             cursor: pointer;
         }
     </style>
@@ -88,7 +88,7 @@
         </div>
     </nav>
 
-    <!-- Kontena Utama (Boleh Mengembang Penuh untuk Kuiz) -->
+    <!-- Kontena Utama -->
     <div id="mainAppWrapper" class="p-2 sm:p-3 w-full max-w-7xl mx-auto flex-1 flex flex-col overflow-hidden transition-all duration-300">
 
         <!-- ================= PANEL TETAPAN (SETUP) ================= -->
@@ -184,7 +184,7 @@ C. Kuching"></textarea>
                             </div>
 
                             <div class="flex items-center justify-between border-t pt-2">
-                                <label for="winstreakToggle" class="text-slate-600 font-semibold cursor-pointer">Aktifkan Bonus Winstreak:</label>
+                                <label for="winstreakToggle" class="text-slate-600 font-semibold cursor-pointer">Aktifkan Bonus Winstreak (Max x10):</label>
                                 <input type="checkbox" id="winstreakToggle" checked class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer" onchange="toggleWinstreakInput()">
                             </div>
                             <div id="winstreakScoreWrapper">
@@ -238,7 +238,6 @@ C. Kuching"></textarea>
         </div>
 
         <!-- ================= PANEL ARENA KUIZ ================= -->
-        <!-- Kini ia akan mengambil seluruh ruang dengan susun atur baharu -->
         <div id="quizView" class="hidden h-full flex flex-col justify-between overflow-hidden relative">
             
             <!-- Bahagian Atas: Info & Timer -->
@@ -265,17 +264,17 @@ C. Kuching"></textarea>
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-3 flex-1 overflow-hidden min-h-0 pt-1 pb-2">
                 
                 <!-- 🔥 KOTAK UTAMA KESELURUHAN PAPARAN SOALAN 🔥 -->
-                <div id="mainQuestionContainer" class="lg:col-span-3 bg-white p-3 rounded-2xl shadow border-2 flex flex-col justify-between overflow-hidden relative transition-all">
+                <div id="mainQuestionContainer" class="lg:col-span-3 bg-white p-3 rounded-2xl shadow border-2 flex flex-col justify-center overflow-hidden relative transition-all">
                     
-                    <!-- Kontena Tengah Soalan (Auto scale & center) -->
-                    <div id="questionWrapper" class="flex flex-col flex-1 justify-center items-center text-center w-full overflow-hidden my-auto py-1">
+                    <!-- Kontena Tengah Soalan (Auto center) -->
+                    <div id="questionWrapper" class="flex flex-col flex-1 justify-center items-center text-center w-full overflow-hidden my-auto py-2 gap-3 sm:gap-4">
                         
-                        <div id="displayImageContainer" class="hidden mb-2 w-full flex justify-center flex-shrink min-h-0">
+                        <div id="displayImageContainer" class="hidden w-full flex justify-center flex-shrink min-h-0">
                             <img id="displayQuestionImage" src="" alt="Gambar Soalan" class="max-h-32 sm:max-h-48 md:max-h-[200px] w-auto max-w-full object-contain rounded-lg border-2 border-indigo-100 shadow-sm">
                         </div>
 
                         <!-- Header Teks Soalan -->
-                        <div id="qBoxHeader" class="w-full bg-indigo-50/80 p-3 sm:p-4 rounded-xl border border-indigo-100 mb-3 flex-shrink-0">
+                        <div id="qBoxHeader" class="w-full bg-indigo-50/80 p-3 sm:p-4 rounded-xl border border-indigo-100 flex-shrink-0">
                             <div id="bonusBadge" class="hidden text-amber-600 font-black text-xs sm:text-sm mb-1.5 uppercase tracking-widest flex items-center justify-center gap-1.5">
                                 <i class="fa-solid fa-fire-flame-curved text-amber-500 animate-bounce"></i> 
                                 SOALAN BONUS (<span id="displayScorePts"></span> Pt)
@@ -290,25 +289,25 @@ C. Kuching"></textarea>
                         </div>
 
                         <!-- Pilihan Jawapan -->
-                        <div id="displayOptions" class="grid grid-cols-2 gap-2 sm:gap-3 w-full text-left flex-shrink-0 mt-auto"></div>
+                        <div id="displayOptions" class="grid grid-cols-2 gap-2 sm:gap-3 w-full text-left flex-shrink-0"></div>
                     </div>
 
                     <!-- Bahagian Penjuru Bawah Kanan: Swipe Check / Next Button -->
-                    <div class="border-t-2 border-slate-100 pt-3 mt-3 w-full flex justify-end flex-shrink-0">
+                    <div class="border-t-2 border-slate-100 pt-3 mt-2 w-full flex justify-end flex-shrink-0">
                         <div class="w-full sm:w-2/3 md:w-1/2 lg:w-2/5 flex flex-col justify-end relative">
-                            <!-- Butang Semak Sistem Swipe -->
-                            <div id="swipeCheckContainer" class="relative h-10 sm:h-12 bg-indigo-200 rounded-xl overflow-hidden flex items-center shadow-inner group w-full transition-all">
-                                <span class="absolute w-full text-center text-[11px] sm:text-sm font-bold text-indigo-700 pointer-events-none select-none drop-shadow-sm">
+                            <!-- Butang Semak Sistem Swipe - Compact -->
+                            <div id="swipeCheckContainer" class="relative h-8 sm:h-10 bg-indigo-200 rounded-lg overflow-hidden flex items-center shadow-inner group w-full transition-all">
+                                <span class="absolute w-full text-center text-[10px] sm:text-xs font-bold text-indigo-700 pointer-events-none select-none drop-shadow-sm">
                                     <i class="fa-solid fa-angles-right animate-pulse mr-1"></i> LERET UNTUK SEMAK
                                 </span>
                                 <input type="range" min="0" max="100" value="0" id="swipeCheckSlider" class="absolute w-full h-full opacity-0 cursor-pointer z-20" oninput="handleSwipeInput(this)" onchange="handleSwipeRelease(this)">
-                                <div id="swipeThumb" class="h-full bg-indigo-600 w-12 absolute left-0 z-10 flex items-center justify-center text-white pointer-events-none rounded-xl transition-all duration-75 shadow-md">
-                                    <i class="fa-solid fa-chevron-right text-lg"></i>
+                                <div id="swipeThumb" class="h-full bg-indigo-600 w-10 absolute left-0 z-10 flex items-center justify-center text-white pointer-events-none rounded-lg transition-all duration-75 shadow-md">
+                                    <i class="fa-solid fa-chevron-right text-sm"></i>
                                 </div>
                             </div>
                             
                             <!-- Next Question Button -->
-                            <button id="btnNextQuestion" onclick="nextQuestion()" class="hidden w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-2 sm:py-3 rounded-xl text-xs sm:text-sm transition shadow-lg border-b-4 border-emerald-800 active:translate-y-1 active:border-b-0">
+                            <button id="btnNextQuestion" onclick="nextQuestion()" class="hidden w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-xs transition shadow-lg border-b-4 border-emerald-800 active:translate-y-1 active:border-b-0">
                                 SOALAN SETERUSNYA <i class="fa-solid fa-arrow-right ml-1"></i>
                             </button>
                         </div>
@@ -326,13 +325,13 @@ C. Kuching"></textarea>
 
             </div>
 
-            <!-- 🔥 PANEL KHAS BAWAH UNTUK KUMPULAN (Hujung ke Hujung & Dijarakkan) 🔥 -->
-            <div class="w-full bg-slate-200/80 border-t-4 border-indigo-400 p-2 sm:p-4 rounded-t-2xl shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.1)] flex-shrink-0 mt-1 relative -mx-2 sm:-mx-3 px-3 sm:px-4" style="width: calc(100% + 16px); sm:width: calc(100% + 24px);">
-                <div class="text-[10px] sm:text-xs font-black text-indigo-800 mb-2 sm:mb-3 text-center uppercase tracking-[0.2em] opacity-80 drop-shadow-sm">
+            <!-- 🔥 PANEL KHAS BAWAH UNTUK KUMPULAN 🔥 -->
+            <div class="w-full bg-slate-200/80 border-t-4 border-indigo-400 p-1.5 sm:p-2 pt-2 sm:pt-3 rounded-t-2xl shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.1)] flex-shrink-0 mt-1 relative -mx-2 sm:-mx-3 px-3 sm:px-4" style="width: calc(100% + 16px); sm:width: calc(100% + 24px);">
+                <div class="text-[9px] sm:text-[10px] font-black text-indigo-800 mb-0.5 text-center uppercase tracking-[0.2em] opacity-80 drop-shadow-sm">
                     <i class="fa-solid fa-users-viewfinder mr-1"></i> Ruang Menjawab Kumpulan
                 </div>
-                <!-- Flex dengan justify-evenly untuk memberikan jarak maksimum antara kumpulan -->
-                <div id="groupAnswerInputs" class="flex flex-row justify-evenly items-end gap-3 sm:gap-6 overflow-x-auto w-full pb-2"></div>
+                <!-- Menambah pt-4 sm:pt-5 untuk memberi ruang lompatan animasi bounce -->
+                <div id="groupAnswerInputs" class="flex flex-row justify-evenly items-end gap-2 sm:gap-4 overflow-x-auto w-full pb-1 pt-4 sm:pt-5"></div>
             </div>
 
         </div>
@@ -392,8 +391,8 @@ C. Kuching"></textarea>
     <!-- JavaScript Logic -->
     <script>
         let groups = [
-            { id: 1, name: "Kumpulan Merah", score: 0, streak: 0 },
-            { id: 2, name: "Kumpulan Biru", score: 0, streak: 0 }
+            { id: 1, name: "Kumpulan Merah", score: 0, streak: 0, maxStreak: 0 },
+            { id: 2, name: "Kumpulan Biru", score: 0, streak: 0, maxStreak: 0 }
         ];
         let questions = [];
         let activeQuestions = [];
@@ -616,7 +615,7 @@ C. Kuching"></textarea>
             }
         }
 
-        // --- SEMAK & SUSUN PUKAL (BULK PARSER) ---
+        // --- SEMAK & SUSUN PUKAL ---
         function processBulkInput() {
             const rawText = document.getElementById('bulkInput').value.trim();
             if (!rawText) return alert("Sila masukkan soalan!");
@@ -894,7 +893,7 @@ C. Kuching"></textarea>
             const name = input.value.trim();
             if (!name) return;
 
-            groups.push({ id: Date.now(), name: name, score: 0, streak: 0 });
+            groups.push({ id: Date.now(), name: name, score: 0, streak: 0, maxStreak: 0 });
             input.value = '';
             renderGroups();
         }
@@ -929,7 +928,6 @@ C. Kuching"></textarea>
 
             unlockAudioContext();
             
-            // Allow container to stretch wide for quiz mode (kalau nak penuh skrin)
             document.getElementById('mainAppWrapper').classList.remove('max-w-7xl');
 
             const rawTimerVal = parseInt(document.getElementById('timerInput').value);
@@ -957,7 +955,7 @@ C. Kuching"></textarea>
             startBGMSynth();
 
             currentQuestionIndex = 0;
-            groups.forEach(g => { g.score = 0; g.streak = 0; });
+            groups.forEach(g => { g.score = 0; g.streak = 0; g.maxStreak = 0; });
             loadQuestion();
         }
 
@@ -1008,7 +1006,7 @@ C. Kuching"></textarea>
 
             renderGroupAnswerButtons();
 
-            // Sediakan Slider Leretan (Swipe-to-Check)
+            // Slider Leretan (Swipe-to-Check)
             const swipeContainer = document.getElementById('swipeCheckContainer');
             const swipeSlider = document.getElementById('swipeCheckSlider');
             const swipeThumb = document.getElementById('swipeThumb');
@@ -1016,17 +1014,17 @@ C. Kuching"></textarea>
             swipeContainer.classList.remove('hidden');
             document.getElementById('btnNextQuestion').classList.add('hidden');
             swipeSlider.value = 0;
-            swipeThumb.style.width = '3rem';
+            swipeThumb.style.width = '2.5rem';
 
             renderScoreboard();
             startTimer();
         }
 
-        // --- SISTEM LERET UNTUK SEMAK (SWIPE TO CHECK) ---
+        // --- LERET UNTUK SEMAK ---
         function handleSwipeInput(slider) {
             const val = slider.value;
             const thumb = document.getElementById('swipeThumb');
-            const minWidth = 48; // Lebar butang leret
+            const minWidth = 40;
             const maxWidth = slider.offsetWidth;
             const currentWidth = minWidth + ((val / 100) * (maxWidth - minWidth));
             thumb.style.width = currentWidth + 'px';
@@ -1045,7 +1043,7 @@ C. Kuching"></textarea>
         function handleSwipeRelease(slider) {
             if (slider.value < 95) {
                 slider.value = 0;
-                document.getElementById('swipeThumb').style.width = '3rem';
+                document.getElementById('swipeThumb').style.width = '2.5rem';
             }
         }
 
@@ -1082,7 +1080,6 @@ C. Kuching"></textarea>
                         timerBar.className = "h-full bg-red-600 animate-pulse absolute left-1/2 -translate-x-1/2 top-0";
                     }
 
-                    // Auto Semak (Delay 1 Saat)
                     if (document.getElementById('autoCheckToggle').checked) {
                         setTimeout(() => {
                             if (!hasChecked) {
@@ -1117,7 +1114,6 @@ C. Kuching"></textarea>
             const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
             const q = activeQuestions[currentQuestionIndex];
 
-            // Setup Layout Joystick Grid
             const numOpts = q.options.length;
             const gridCols = numOpts > 4 ? 3 : 2; 
             const hideAnswersToggle = document.getElementById('hideGroupAnswersToggle').checked;
@@ -1126,20 +1122,18 @@ C. Kuching"></textarea>
                 const isSelected = selectedAnswers[g.id] !== undefined;
                 let answerDisplayHtml = '';
 
-                // Jika hideAnswers diaktifkan dan kumpulan dah jawab (tapi belum semak) -> Tunjuk animasi "SEDIA"
                 if (hideAnswersToggle && isSelected && !hasChecked) {
                     answerDisplayHtml = `
-                        <div class="w-full mt-2 px-3 py-4 bg-amber-400 text-amber-900 border-b-4 border-amber-600 text-sm font-black rounded-xl shadow-sm animate-pulse tracking-widest flex items-center justify-center gap-2">
+                        <div class="w-full mt-1 px-2 py-2 bg-amber-400 text-amber-900 border-b-2 border-amber-600 text-[10px] sm:text-xs font-bold rounded-lg shadow-sm animate-pulse tracking-wide flex items-center justify-center gap-1">
                             <i class="fa-solid fa-lock"></i> SEDIA
                         </div>
                     `;
                 } else {
-                    // Paparan normal (Butang Grid Joystick yang lebih besar dan selesa ditekan)
                     answerDisplayHtml = `
-                        <div class="grid grid-cols-${gridCols} gap-2 w-full place-items-center mt-2">
+                        <div class="grid grid-cols-${gridCols} gap-[1px] bg-slate-300 border border-slate-300 rounded-md overflow-hidden w-full mt-1">
                             ${q.options.map((_, optIdx) => `
                                 <button id="btn-ans-${g.id}-${optIdx}" onclick="selectGroupAnswer(${g.id},${optIdx})"
-                                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl text-sm sm:text-base font-black border-b-4 active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center ${selectedAnswers[g.id] === optIdx ? 'bg-indigo-600 text-white border-indigo-800 shadow-inner' : 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200'}">
+                                    class="h-6 sm:h-7 w-full text-[10px] font-bold active:bg-slate-200 transition-all flex items-center justify-center ${selectedAnswers[g.id] === optIdx ? 'bg-indigo-600 text-white shadow-inner' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
                                     ${letters[optIdx]}
                                 </button>
                             `).join('')}
@@ -1147,12 +1141,11 @@ C. Kuching"></textarea>
                     `;
                 }
 
-                // Saiz kad kumpulan lebih besar dan akan tertolak menjauhi kumpulan lain (justify-evenly)
                 return `
-                    <div id="group-card-${g.id}" class="bg-white px-3 py-2 rounded-xl border-2 border-slate-200 flex flex-col justify-center items-center gap-1 shadow-sm transition-all duration-300 flex-1 max-w-[200px] min-w-[100px]">
-                        <span class="text-xs sm:text-sm font-bold text-slate-800 leading-tight text-center border-b pb-1 w-full truncate">${g.name}</span>
+                    <div id="group-card-${g.id}" class="bg-white px-2 py-1.5 rounded-xl border-2 border-slate-200 flex flex-col justify-center items-center gap-0.5 shadow-sm transition-all duration-300 flex-1 max-w-[120px] min-w-[80px]">
+                        <span class="text-[10px] sm:text-xs font-bold text-slate-800 leading-tight text-center border-b pb-0.5 w-full truncate">${g.name}</span>
                         ${answerDisplayHtml}
-                        <span id="group-status-${g.id}" class="text-[10px] sm:text-xs font-bold h-4 block mt-1"></span>
+                        <span id="group-status-${g.id}" class="text-[9px] sm:text-[10px] font-bold h-3 block mt-0.5"></span>
                     </div>
                 `;
             }).join('');
@@ -1171,14 +1164,12 @@ C. Kuching"></textarea>
             clearInterval(timerInterval);
             hasChecked = true;
 
-            // Memastikan UI Joystick dipaparkan kembali bagi melihat jawapan sebenar sebelum semakan warna
             renderGroupAnswerButtons();
 
             const q = activeQuestions[currentQuestionIndex];
             let someoneCorrect = false;
             const basePoints = q.score !== undefined ? q.score : (q.isBonus ? 200 : 100);
 
-            // Mewarnakan pilihan utama jawapan betul 
             q.options.forEach((opt, i) => {
                 const card = document.getElementById(`opt-card-${i}`);
                 if (opt.isCorrect) {
@@ -1194,10 +1185,16 @@ C. Kuching"></textarea>
 
                 if (selectedOptIdx !== undefined && q.options[selectedOptIdx] && q.options[selectedOptIdx].isCorrect) {
                     g.streak++;
+                    if (g.streak > (g.maxStreak || 0)) {
+                        g.maxStreak = g.streak;
+                    }
+
                     let earned = basePoints;
                     
+                    // 🔥 DIHADKAN PADA MAKSIMUM X10 (EFFECTIVE STREAK MAX 10) 🔥
                     if (winstreakEnabled && g.streak >= 2) {
-                        earned += (g.streak - 1) * winstreakBonusAmount;
+                        const effectiveStreak = Math.min(g.streak, 10);
+                        earned += (effectiveStreak - 1) * winstreakBonusAmount;
                     }
                     g.score += earned;
                     someoneCorrect = true;
@@ -1207,7 +1204,7 @@ C. Kuching"></textarea>
                         groupCard.classList.add('bg-emerald-100', 'border-emerald-500', 'animate-bounce', 'shadow-md');
                     }
                     if (statusSpan) {
-                        statusSpan.className = "text-[11px] sm:text-xs font-black text-emerald-700 mt-1";
+                        statusSpan.className = "text-[9px] sm:text-[10px] font-black text-emerald-700 mt-0.5";
                         statusSpan.innerText = `✓ +${earned}`;
                     }
                 } else {
@@ -1217,7 +1214,7 @@ C. Kuching"></textarea>
                         groupCard.classList.add('bg-red-50', 'border-red-400', 'animate-shake');
                     }
                     if (statusSpan) {
-                        statusSpan.className = "text-[11px] sm:text-xs font-bold text-red-600 mt-1";
+                        statusSpan.className = "text-[9px] sm:text-[10px] font-bold text-red-600 mt-0.5";
                         statusSpan.innerText = "✗ 0 pt";
                     }
                 }
@@ -1229,7 +1226,6 @@ C. Kuching"></textarea>
                 playWrongSFX();
             }
 
-            // Sembunyikan Slider & Tunjukkan Butang Seterusnya
             document.getElementById('swipeCheckContainer').classList.add('hidden');
             document.getElementById('btnNextQuestion').classList.remove('hidden');
 
@@ -1246,7 +1242,6 @@ C. Kuching"></textarea>
             }
         }
 
-        // --- TOGGLE TAMPIL BUTANG +/- MARKAH ---
         function toggleScoreAdjust(id) {
             document.getElementById(`adjust-btns-${id}`).classList.toggle('hidden');
         }
@@ -1262,7 +1257,7 @@ C. Kuching"></textarea>
                         <span class="text-xs sm:text-sm flex-shrink-0">${idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '#' + (idx + 1)}</span>
                         <div class="truncate">
                             <span class="font-bold text-slate-800 leading-tight block truncate">${g.name}</span>
-                            ${(winstreakEnabled && g.streak >= 2) ? `<span class="text-[9px] bg-amber-500 text-white font-black px-1.5 py-0.5 rounded">🔥 Streak x${g.streak}</span>` : ''}
+                            ${(winstreakEnabled && g.streak >= 2) ? `<span class="text-[9px] bg-amber-500 text-white font-black px-1.5 py-0.5 rounded">🔥 Streak x${Math.min(g.streak, 10)}${g.streak > 10 ? ' (MAX)' : ''}</span>` : ''}
                         </div>
                     </div>
                     
@@ -1303,7 +1298,10 @@ C. Kuching"></textarea>
                 <div class="flex justify-between items-center p-3 sm:p-4 rounded-2xl ${idx === 0 ? 'bg-amber-100 border-2 border-amber-400' : 'bg-slate-50 border-2'}">
                     <div class="flex items-center gap-3">
                         <span class="text-3xl">${badges[idx] || '🎖️'}</span>
-                        <span class="font-bold text-sm sm:text-base text-slate-800">${g.name}</span>
+                        <div class="text-left">
+                            <span class="font-bold text-sm sm:text-base text-slate-800 block">${g.name}</span>
+                            <span class="text-[10px] text-slate-500 font-semibold">Streak Tertinggi: 🔥 x${g.maxStreak || 0}</span>
+                        </div>
                     </div>
                     <span class="text-base sm:text-lg font-black text-indigo-600">${g.score} Markah</span>
                 </div>
@@ -1320,10 +1318,9 @@ C. Kuching"></textarea>
             document.getElementById('setupView').classList.remove('hidden');
             document.getElementById('currentStepBadge').innerText = "Tetapan";
             
-            // Kembalikan saiz wrapper normal (untuk setup view)
             document.getElementById('mainAppWrapper').classList.add('max-w-7xl');
 
-            groups.forEach(g => { g.score = 0; g.streak = 0; });
+            groups.forEach(g => { g.score = 0; g.streak = 0; g.maxStreak = 0; });
             renderGroups();
         }
     </script>

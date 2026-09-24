@@ -261,7 +261,7 @@ C. Kuching"></textarea>
             </div>
 
             <!-- Bahagian Tengah: Kotak Soalan & Markah -->
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-3 flex-1 overflow-hidden min-h-0 pt-1 pb-2">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-3 flex-1 overflow-hidden min-h-0 pt-1 pb-1">
                 
                 <!-- 🔥 KOTAK UTAMA KESELURUHAN PAPARAN SOALAN 🔥 -->
                 <div id="mainQuestionContainer" class="lg:col-span-3 bg-white p-3 rounded-2xl shadow border-2 flex flex-col justify-center overflow-hidden relative transition-all">
@@ -293,16 +293,16 @@ C. Kuching"></textarea>
                     </div>
 
                     <!-- Bahagian Penjuru Bawah Kanan: Swipe Check / Next Button -->
-                    <div class="border-t-2 border-slate-100 pt-3 mt-2 w-full flex justify-end flex-shrink-0">
+                    <div class="border-t-2 border-slate-100 pt-2 mt-1 w-full flex justify-end flex-shrink-0">
                         <div class="w-full sm:w-2/3 md:w-1/2 lg:w-2/5 flex flex-col justify-end relative">
                             <!-- Butang Semak Sistem Swipe - Compact -->
-                            <div id="swipeCheckContainer" class="relative h-8 sm:h-10 bg-indigo-200 rounded-lg overflow-hidden flex items-center shadow-inner group w-full transition-all">
-                                <span class="absolute w-full text-center text-[10px] sm:text-xs font-bold text-indigo-700 pointer-events-none select-none drop-shadow-sm">
+                            <div id="swipeCheckContainer" class="relative h-8 sm:h-9 bg-indigo-200 rounded-lg overflow-hidden flex items-center shadow-inner group w-full transition-all">
+                                <span class="absolute w-full text-center text-[10px] font-bold text-indigo-700 pointer-events-none select-none drop-shadow-sm">
                                     <i class="fa-solid fa-angles-right animate-pulse mr-1"></i> LERET UNTUK SEMAK
                                 </span>
                                 <input type="range" min="0" max="100" value="0" id="swipeCheckSlider" class="absolute w-full h-full opacity-0 cursor-pointer z-20" oninput="handleSwipeInput(this)" onchange="handleSwipeRelease(this)">
                                 <div id="swipeThumb" class="h-full bg-indigo-600 w-10 absolute left-0 z-10 flex items-center justify-center text-white pointer-events-none rounded-lg transition-all duration-75 shadow-md">
-                                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
                                 </div>
                             </div>
                             
@@ -325,13 +325,12 @@ C. Kuching"></textarea>
 
             </div>
 
-            <!-- 🔥 PANEL KHAS BAWAH UNTUK KUMPULAN 🔥 -->
-            <div class="w-full bg-slate-200/80 border-t-4 border-indigo-400 p-1.5 sm:p-2 pt-2 sm:pt-3 rounded-t-2xl shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.1)] flex-shrink-0 mt-1 relative -mx-2 sm:-mx-3 px-3 sm:px-4" style="width: calc(100% + 16px); sm:width: calc(100% + 24px);">
-                <div class="text-[9px] sm:text-[10px] font-black text-indigo-800 mb-0.5 text-center uppercase tracking-[0.2em] opacity-80 drop-shadow-sm">
+            <!-- 🔥 PANEL KHAS BAWAH UNTUK KUMPULAN (SAIZ DIKECILKAN 2X GANDA) 🔥 -->
+            <div class="w-full bg-slate-200/90 border-t-2 border-indigo-400 p-1 pt-1 rounded-t-xl shadow-[0_-5px_10px_-3px_rgba(0,0,0,0.1)] flex-shrink-0 mt-0.5 relative -mx-2 sm:-mx-3 px-2 sm:px-3" style="width: calc(100% + 16px); sm:width: calc(100% + 24px);">
+                <div class="text-[8px] font-black text-indigo-800 text-center uppercase tracking-[0.15em] opacity-80 mb-0.5">
                     <i class="fa-solid fa-users-viewfinder mr-1"></i> Ruang Menjawab Kumpulan
                 </div>
-                <!-- Menambah pt-4 sm:pt-5 untuk memberi ruang lompatan animasi bounce -->
-                <div id="groupAnswerInputs" class="flex flex-row justify-evenly items-end gap-2 sm:gap-4 overflow-x-auto w-full pb-1 pt-4 sm:pt-5"></div>
+                <div id="groupAnswerInputs" class="flex flex-row justify-evenly items-end gap-1 sm:gap-2 overflow-x-auto w-full pb-0.5 pt-0.5"></div>
             </div>
 
         </div>
@@ -1109,6 +1108,7 @@ C. Kuching"></textarea>
             }
         }
 
+        /* 🔹 RENDER BUTANG JAWAPAN KUMPULAN (DIKEMAS KINI: MEMBENARKAN TEKS NAMA BERLIPAT) 🔹 */
         function renderGroupAnswerButtons() {
             const container = document.getElementById('groupAnswerInputs');
             const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -1124,16 +1124,16 @@ C. Kuching"></textarea>
 
                 if (hideAnswersToggle && isSelected && !hasChecked) {
                     answerDisplayHtml = `
-                        <div class="w-full mt-1 px-2 py-2 bg-amber-400 text-amber-900 border-b-2 border-amber-600 text-[10px] sm:text-xs font-bold rounded-lg shadow-sm animate-pulse tracking-wide flex items-center justify-center gap-1">
+                        <div class="w-full mt-0.5 px-1 py-0.5 bg-amber-400 text-amber-900 border-b border-amber-600 text-[8px] sm:text-[9px] font-bold rounded shadow-xs animate-pulse tracking-wide flex items-center justify-center gap-0.5">
                             <i class="fa-solid fa-lock"></i> SEDIA
                         </div>
                     `;
                 } else {
                     answerDisplayHtml = `
-                        <div class="grid grid-cols-${gridCols} gap-[1px] bg-slate-300 border border-slate-300 rounded-md overflow-hidden w-full mt-1">
+                        <div class="grid grid-cols-${gridCols} gap-[1px] bg-slate-300 border border-slate-300 rounded overflow-hidden w-full mt-0.5">
                             ${q.options.map((_, optIdx) => `
                                 <button id="btn-ans-${g.id}-${optIdx}" onclick="selectGroupAnswer(${g.id},${optIdx})"
-                                    class="h-6 sm:h-7 w-full text-[10px] font-bold active:bg-slate-200 transition-all flex items-center justify-center ${selectedAnswers[g.id] === optIdx ? 'bg-indigo-600 text-white shadow-inner' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
+                                    class="h-3.5 sm:h-4 w-full text-[8px] font-bold active:bg-slate-200 transition-all flex items-center justify-center ${selectedAnswers[g.id] === optIdx ? 'bg-indigo-600 text-white shadow-inner' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
                                     ${letters[optIdx]}
                                 </button>
                             `).join('')}
@@ -1142,10 +1142,10 @@ C. Kuching"></textarea>
                 }
 
                 return `
-                    <div id="group-card-${g.id}" class="bg-white px-2 py-1.5 rounded-xl border-2 border-slate-200 flex flex-col justify-center items-center gap-0.5 shadow-sm transition-all duration-300 flex-1 max-w-[120px] min-w-[80px]">
-                        <span class="text-[10px] sm:text-xs font-bold text-slate-800 leading-tight text-center border-b pb-0.5 w-full truncate">${g.name}</span>
+                    <div id="group-card-${g.id}" class="bg-white px-1 py-1 rounded-lg border border-slate-200 flex flex-col justify-center items-center gap-0.5 shadow-xs transition-all duration-300 flex-1 max-w-[85px] min-w-[55px]">
+                        <span class="text-[8px] sm:text-[9px] font-bold text-slate-800 leading-tight text-center border-b pb-0.5 w-full break-words line-clamp-2">${g.name}</span>
                         ${answerDisplayHtml}
-                        <span id="group-status-${g.id}" class="text-[9px] sm:text-[10px] font-bold h-3 block mt-0.5"></span>
+                        <span id="group-status-${g.id}" class="text-[7px] sm:text-[8px] font-bold h-2.5 block mt-0.5"></span>
                     </div>
                 `;
             }).join('');
@@ -1204,7 +1204,7 @@ C. Kuching"></textarea>
                         groupCard.classList.add('bg-emerald-100', 'border-emerald-500', 'animate-bounce', 'shadow-md');
                     }
                     if (statusSpan) {
-                        statusSpan.className = "text-[9px] sm:text-[10px] font-black text-emerald-700 mt-0.5";
+                        statusSpan.className = "text-[7px] sm:text-[8px] font-black text-emerald-700 mt-0.5";
                         statusSpan.innerText = `✓ +${earned}`;
                     }
                 } else {
@@ -1214,7 +1214,7 @@ C. Kuching"></textarea>
                         groupCard.classList.add('bg-red-50', 'border-red-400', 'animate-shake');
                     }
                     if (statusSpan) {
-                        statusSpan.className = "text-[9px] sm:text-[10px] font-bold text-red-600 mt-0.5";
+                        statusSpan.className = "text-[7px] sm:text-[8px] font-bold text-red-600 mt-0.5";
                         statusSpan.innerText = "✗ 0 pt";
                     }
                 }
